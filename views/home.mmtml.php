@@ -1,9 +1,3 @@
-<?php
-/**
- * @var int $times
- */
-
-for ($i=0; $i < $times; $i++) { 
-    echo "Hello, World! $i <br>";
-    echo '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam lectus. Sed sit amet ipsum mauris. Maecenas congue ligula ac quam viverra nec consectetur ante hendrerit. Donec et mollis dolor. Praesent et diam eget libero egestas mattis sit amet vitae augue. Nam tincidunt congue enim, ut porta lorem lacinia consectetur. Donec ut libero sed arcu vehicula ultricies a non tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut gravida lorem.</p>';
-}
+<h1>Добро пожаловать</h1>
+<p>Это Mini-MVC на чистом PHP!!! :)</p>
+<p>Перейдите к <a href="/posts">списку постов</a></p>
