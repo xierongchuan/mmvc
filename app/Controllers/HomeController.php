@@ -7,6 +7,6 @@ class HomeController
 {
     public function index(): string
     {
-        return View::render('home', ['title' => 'Главная']);
+        return View::render('home', ['times' => 5]);
     }
 }
