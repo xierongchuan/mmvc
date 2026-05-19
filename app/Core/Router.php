@@ -20,14 +20,23 @@ class Router
 
             if (preg_match($regex, $uri, $matches)) {
                 $params = array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY);
-                return call_user_func($action, ...array_values($params));
+                $values = array_values($params);
+
+                // Если передан массив [ClassName, methodName]
+                if (is_array($action) && count($action) === 2) {
+                    $controller = new $action[0]();
+                    return $controller->{$action[1]}(...$values);
+                }
+
+                // Fallback для Closure
+                return $action(...$values);
             }
         }
 
         throw new RuntimeException('Not Found', 404);
     }
 
-    public function get(string $path, callable $action): void
+    public function get(string $path, callable|array $action): void
     {
         $this->routes['GET'][$path] = $action;
     }
