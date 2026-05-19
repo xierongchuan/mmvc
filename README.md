@@ -12,7 +12,6 @@ mv .env.example .env
 php -S localhost:8000 -t public
 ```
 
-
 ## Структура
 
 - `app/Core/` - Автолоадер и Ядро.
