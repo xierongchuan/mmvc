@@ -21,3 +21,11 @@ php -S localhost:8000 -t public
 - `routes/web.php` - Регистрация маршрутов.
 - `views/` - Шаблоны MMTML(типо свой Mini-MVC Text Markup Language).
 - `.env` - Файл конфигурации.
+
+## Утилита `master`
+
+Использование: `php master <command> <Name>`
+
+Доступные команды:
+- `make:controller <Name>`  - Создать контроллер
+- `make:model <Name>`       - Создать модель

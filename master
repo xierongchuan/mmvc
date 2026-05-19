@@ -1,0 +1,99 @@
+#!/usr/bin/env php
+<?php
+
+// Этот скрипт используется для генерации новых контроллеров и моделей :)))
+
+$root = dirname(__DIR__);
+$appDir = $root . '/app';
+
+if ($argc < 3) {
+    echo "Использование: php master <command> <Name>\n";
+    echo "Доступные команды:\n";
+    echo "  make:controller <Name>  - Создать контроллер\n";
+    echo "  make:model <Name>       - Создать модель\n";
+    exit(1);
+}
+
+// Разбор аргументов
+$command = $argv[1];
+$rawName = $argv[2];
+
+if (!preg_match('/^[A-Za-z][A-Za-z0-9]*$/', $rawName)) {
+    fwrite(STDERR, "Неверное имя класса. Только латиница, начинается с буквы!\n");
+    exit(1);
+}
+
+$className = ucfirst($rawName);
+
+$config = [
+    'make:controller' => [
+        'dir'       => 'Controllers',
+        'suffix'    => 'Controller',
+        'namespace' => 'App\\Controllers',
+        'template'  => <<<PHP
+<?php
+declare(strict_types=1);
+
+namespace {namespace};
+
+class {class}
+{
+    public function index(): string
+    {
+        return 'Controller {class} работает';
+    }
+}
+PHP
+    ],
+    'make:model' => [
+        'dir'       => 'Models',
+        'suffix'    => '',
+        'namespace' => 'App\\Models',
+        'template'  => <<<PHP
+<?php
+declare(strict_types=1);
+
+namespace {namespace};
+
+class {class}
+{
+    // Данные и логика модели
+}
+PHP
+    ]
+];
+
+if (!isset($config[$command])) {
+    fwrite(STDERR, "Неизвестная команда: {$command}\n");
+    exit(1);
+}
+
+$c = $config[$command];
+if ($c['suffix'] && !str_ends_with($className, $c['suffix'])) {
+    $className .= $c['suffix'];
+}
+
+$targetDir = __DIR__ . "/app/{$c['dir']}";
+$filePath  = "{$targetDir}/{$className}.php";
+
+if (file_exists($filePath)) {
+    fwrite(STDERR, "Файл уже существует: {$filePath}\n");
+    exit(0);
+}
+
+if (!is_dir($targetDir)) {
+    mkdir($targetDir, 0755, true);
+}
+
+$code = str_replace(
+    ['{namespace}', '{class}'],
+    [$c['namespace'], $className],
+    $c['template']
+);
+
+if (file_put_contents($filePath, $code . PHP_EOL) === false) {
+    fwrite(STDERR, "❌ Ошибка записи: {$filePath}\n");
+    exit(1);
+}
+
+echo "✅ Создан: {$filePath}\n";
