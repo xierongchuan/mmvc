@@ -8,7 +8,7 @@ class View
     {
         extract($data);
         ob_start();
-        require __DIR__ . "/../../views/{$view}.phtml";
+        require __DIR__ . "/../../views/{$view}.mmtml.php";
         return ob_get_clean();
     }
 }
