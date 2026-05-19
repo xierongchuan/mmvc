@@ -12,7 +12,7 @@ $router = new Router();
 
 try {
     $response = $router->dispatch($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
-    echo View::render('home', ['content' => $response, 'title' => 'Mini MVC']);
+    echo $response;
 } catch (\RuntimeException $e) {
     if ($e->getCode() === 404) {
         http_response_code(404);
