@@ -3,9 +3,11 @@ namespace App\Core;
 
 class View
 {
-    public static function render(string $view, array $data = []): void
+    public static function render(string $view, array $data = []): string
     {
         extract($data);
-        require __DIR__ . '/../Views/' . $view . '.php';
+        ob_start();
+        require __DIR__ . "/../../views/{$view}.phtml";
+        return ob_get_clean();
     }
 }
