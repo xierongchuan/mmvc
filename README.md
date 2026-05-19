@@ -4,7 +4,8 @@ Mini-MVC Framework
 
 ## Структура
 
-- `public/index.php` - Точка входа.
 - `app/Core/` - Автолоадер и Ядро.
+- `app/Controllers` - Контроллеры.
+- `public/index.php` - Точка входа.
 - `routes/web.php` - Регистрация маршрутов.
 - `views/` - Шаблоны MMTML(типо свой Mini-MVC Text Markup Language).
