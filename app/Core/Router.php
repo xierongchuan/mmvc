@@ -11,7 +11,7 @@ class Router
     public function dispatch(string $uri, string $method): string
     {
         $uri = parse_url($uri, PHP_URL_PATH) ?: '/';
-        $routes = $this->routes['::' . $method] ?? [];
+        $routes = $this->routes[$method] ?? [];
 
         // Ищем совпадение с шаблоном маршрута
         foreach ($routes as $pattern => $action) {
@@ -27,9 +27,9 @@ class Router
         throw new RuntimeException('Not Found', 404);
     }
 
-    public function get(string $path, string $controller): void
+    public function get(string $path, callable $action): void
     {
-        $this->routes['GET'][$path] = $controller;
+        $this->routes['GET'][$path] = $action;
     }
 
 
