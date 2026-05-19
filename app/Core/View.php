@@ -1,6 +1,7 @@
 <?php
 namespace App\Core;
 
+// Класс для рендера
 class View
 {
     public static function render(string $view, array $data = []): string
